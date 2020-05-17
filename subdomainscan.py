@@ -22,7 +22,7 @@ try:
                         word = line.strip()
                         url = word + "." + target_url
                         f = requests.get("http://" + url)
-                        print termcolor.colored("\nSubdomain Found: " + url, 'green', attrs=['bold'])
+                        print termcolor.colored("\nSubdomain Found: {}".format(url), 'green', attrs=['bold'])
             
                     except requests.exceptions.ConnectionError:
                         pass
