@@ -1,7 +1,7 @@
 # Tools
 Automation Tools
 
-Install Python Modules before using this program:
+Install Python2.7 Modules before using this program:
 
 #pip install requests
 
