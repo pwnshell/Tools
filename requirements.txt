@@ -1,3 +1,5 @@
-requests
+pyfiglet
 termcolor
+optparse
 os.path
+requests
