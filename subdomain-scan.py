@@ -17,7 +17,7 @@ try:
     (options, args) = parser.parse_args()
 
     print termcolor.colored('                 Sub-Domain Scanner By:!!', 'red', attrs=['bold'])
-    banner = ascii_banner = pyfiglet.figlet_format("            pwnshell")
+    banner = pyfiglet.figlet_format("            pwnshell")
     print termcolor.colored(banner, 'red', attrs=['bold'])
 
     if os.path.exists(str(options.wordlist)) != True:
