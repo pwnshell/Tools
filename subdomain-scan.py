@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-
 # By: pwnshell
+
 import pyfiglet
 import termcolor
 import optparse
@@ -16,6 +16,9 @@ try:
     
     (options, args) = parser.parse_args()
 
+    if len(args) != 2:
+        parser.error("[+] Required domain and wordlist as an arguement")
+
     print termcolor.colored('                 Sub-Domain Scanner By:!!', 'red', attrs=['bold'])
     banner = pyfiglet.figlet_format("            pwnshell")
     print termcolor.colored(banner, 'red', attrs=['bold'])
@@ -23,7 +26,7 @@ try:
     if os.path.exists(str(options.wordlist)) != True:
         print termcolor.colored('\nPlease enter a valid wordlist and re-run the program.', 'red', attrs=['bold'])
     else:    
-        print termcolor.colored('\nGO...GRAB A COFFE FOR YOURSELF TILL THE TIME SCAN GETS COMPLETED..:)', 'blue', attrs=['blink'])
+        print termcolor.colored('\nLooking for sub-domains now, please hold on..:)', 'blue', attrs=['blink'])
 
         try:
             with open(options.wordlist,"r") as wordlist:
