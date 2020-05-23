@@ -3,7 +3,7 @@ Automation Tools
 
 Install Python2.7 Modules before using this program:
 
-#pip install -r requirements.txt
+#pip3 install -r requirements.txt
 
 
 # Screenshots
