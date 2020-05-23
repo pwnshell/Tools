@@ -23,14 +23,14 @@ try:
     
     else:
 
-        print termcolor.colored('                 Sub-Domain Scanner By:!!', 'red', attrs=['bold'])
+        print(termcolor.colored('                 Sub-Domain Scanner By:!!', 'red', attrs=['bold']))
         banner = pyfiglet.figlet_format("            pwnshell")
-        print termcolor.colored(banner, 'red', attrs=['bold'])
+        print(termcolor.colored(banner, 'red', attrs=['bold']))
 
         if os.path.exists(str(options.wordlist)) != True:
-            print termcolor.colored('\nPlease enter a valid wordlist and re-run the program.', 'red', attrs=['bold'])
+            print(termcolor.colored('\nPlease enter a valid wordlist and re-run the program.', 'red', attrs=['bold']))
         else:    
-            print termcolor.colored('\nLooking for sub-domains now, please hold on..:)', 'blue', attrs=['blink'])
+            print(termcolor.colored('\nLooking for sub-domains now, please hold on..:)', 'blue', attrs=['blink']))
 
             try:
                 with open(options.wordlist,"r") as wordlist:
@@ -39,13 +39,13 @@ try:
                             word = line.strip()
                             url = word + "." + options.domain
                             f = requests.get("http://" + url)
-                            print termcolor.colored('\nSubdomain Found: {}'.format(url), 'green', attrs=['bold'])
+                            print(termcolor.colored('\nSubdomain Found: {}'.format(url), 'green', attrs=['bold']))
             
                         except requests.exceptions.ConnectionError:
                             pass
 
             except KeyboardInterrupt:
-                print('\n[+]Ctrl + c..Byeeee...')
+                print(termcolor.colored('\n[+]Ctrl + c..Byeeee...', 'red'))
 
 except KeyboardInterrupt:
-    print('\nByeeeee....')
+    print(termcolor.colored('\nByeeeee....', 'red'))
