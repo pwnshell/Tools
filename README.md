@@ -1,5 +1,5 @@
 # Tools
-Automation Tools
+Subdomain Scanner
 
 Install Python3 Modules before using this program:
 
