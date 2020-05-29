@@ -1,5 +1,4 @@
-# Tools
-Sub-domain Scanner
+#Sub-domain Scanner
 
 Install Python3 Modules before using this program:
 
