@@ -39,7 +39,8 @@ try:
                             word = line.strip()
                             url = word + "." + options.domain
                             f = requests.get("http://" + url)
-                            print(termcolor.colored('\nSubdomain Found: {}'.format(url), 'green', attrs=['bold']))
+                            if f:
+                                print(termcolor.colored('\nSubdomain Found: {}'.format(url), 'green', attrs=['bold']))
             
                         except requests.exceptions.ConnectionError:
                             pass
