@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#Author: Vijay Sachdeva
+#Description: Script to find Root Domain Takever Vulnerability, if required changes, please feel free to tweak..!!:)
+
+######Defining GTLDs Nameservers#########
+dns1=a.gtld-servers.net
+dns2=m.gtld-servers.net
+
+#######Preparing Root Domain List on WHOIS Search##############
+echo "Preparing Root Domains List" | notify -silent
+
+amass intel -whois -df /opt/expedia-final.txt >> /opt/expedia-domain-list.txt 2>/dev/null &
+pid=$!
+wait $pid
+
+###############################################################
+
+#######Remove Duplicate Entries###################################################
+echo "Sorting Domains and removing duplicate entries" | notify -silent
+cat /opt/expedia-domain-list.txt | sort -u > /opt/expedia-domain-list-final.txt 2>/dev/null 
+cat /opt/expedia-final.txt >> /opt/expedia-domain-list-final.txt
+##################################################################################
+
+
+#######Checking Expedia Owned Domains using WHOIS and verify vulnerability on the basis of DNS Records###################
+echo "Starting Domain Takeover Scan" | notify -silent
+
+for domain in `cat /opt/expedia-domain-list-final.txt`
+do
+  sleep 1
+  if [[ `whois $domain | grep -i -E "hotwire|hotels|escapia|egencia|expedia|homeaway|orbitz|carrentals" 2>/dev/null` != "" ]] && [[ `nslookup $domain 8.8.8.8 | grep -i -E "SERVFAIL" | cut -d":" -f2 | cut -d" " -f2` == "SERVFAIL" ]] && [[ `dig @$dns1 $domain NS | grep status | cut -d":" -f3  | cut -d"," -f1 | cut -d" " -f2` == "NOERROR" ]] &&  [[ `dig @$dns2 $domain NS | grep status | cut -d":" -f3  | cut -d"," -f1 | cut -d" " -f2` == "NOERROR" ]]
+  
+  then
+  
+    echo -e "\033[00;32m$domain: Expedia owned Domain"
+    echo -e "\033[00;31m$domain: Vulnerable to Domain Takeover" | notify  -silent
+      
+  else
+    if [[ `whois $domain | grep -i -E "hotwire|hotels|escapia|egencia|expedia|homeaway|orbitz|carrentals" 2>/dev/null` == ""  ]] 
+    then
+
+  
+      echo -e "\033[00;32m$domain: Not Expedia Owned"
+
+    else
+
+      echo -e "\033[00;32m$domain: Not Vulnerable to Domain Takeover"
+    fi
+  fi
+
+done
+
+#############################################################################################################################
